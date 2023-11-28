@@ -1,0 +1,19 @@
+name: CI/CD
+
+on:
+  push:
+    branches: ["main"]
+    
+jobs:
+  build_and_push:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Build and Push Docker image
+      run: |
+        docker build -t ahmad/python-auth-example .
+        docker login -u ${{secrets.DOCKER_USERNAME }} -p {{secrets.DOCKER_PASSWORD}}
+        docker push ahmad/python-auth-example
+        
+        
